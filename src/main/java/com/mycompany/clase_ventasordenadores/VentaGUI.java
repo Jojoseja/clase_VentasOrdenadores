@@ -4,7 +4,20 @@
  */
 package com.mycompany.clase_ventasordenadores;
 
+import java.awt.List;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Vector;
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JRadioButton;
+import javax.swing.ListModel;
 
 /**
  *
@@ -36,6 +49,8 @@ public class VentaGUI extends javax.swing.JFrame {
         bgMemoria = new javax.swing.ButtonGroup();
         bgMonitor = new javax.swing.ButtonGroup();
         bgDiscoDuro = new javax.swing.ButtonGroup();
+        jOptBus1 = new javax.swing.JOptionPane();
+        jOptEli1 = new javax.swing.JOptionPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jnombreCliente = new javax.swing.JTextField();
@@ -74,6 +89,7 @@ public class VentaGUI extends javax.swing.JFrame {
         jBBus = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jBCan = new javax.swing.JButton();
+        jBEdi = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,8 +100,8 @@ public class VentaGUI extends javax.swing.JFrame {
         jLabel1.setPreferredSize(new java.awt.Dimension(120, 20));
 
         jnombreCliente.setToolTipText("");
-        jnombreCliente.setMinimumSize(new java.awt.Dimension(80, 20));
-        jnombreCliente.setPreferredSize(new java.awt.Dimension(120, 20));
+        jnombreCliente.setMinimumSize(new java.awt.Dimension(120, 40));
+        jnombreCliente.setPreferredSize(new java.awt.Dimension(120, 30));
         jnombreCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jnombreClienteActionPerformed(evt);
@@ -99,7 +115,7 @@ public class VentaGUI extends javax.swing.JFrame {
         jLocalidad.setEnabled(false);
         jLocalidad.setPreferredSize(new java.awt.Dimension(80, 20));
 
-        jLabel3.setText("Listta de Clientes");
+        jLabel3.setText("Lista de Clientes");
 
         jLabel4.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
         jLabel4.setText("Procesador");
@@ -117,9 +133,18 @@ public class VentaGUI extends javax.swing.JFrame {
         jLabel7.setText("Disco Duro");
         jLabel7.setPreferredSize(new java.awt.Dimension(80, 20));
 
+        jList1.setAutoscrolls(false);
+        jList1.setDragEnabled(true);
         jList1.setPreferredSize(new java.awt.Dimension(120, 20));
-        jList1.setVerifyInputWhenFocusTarget(false);
-        jList1.setVisibleRowCount(4);
+        jList1.setVisibleRowCount(3);
+        jList1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jList1FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jList1FocusLost(evt);
+            }
+        });
         jSList1.setViewportView(jList1);
 
         jLabel8.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
@@ -130,6 +155,7 @@ public class VentaGUI extends javax.swing.JFrame {
         jPro1.setSelected(true);
         jPro1.setText("P4 3.0 Gb");
         jPro1.setEnabled(false);
+        jPro1.setName("P4 3.0 Gb"); // NOI18N
         jPro1.setPreferredSize(new java.awt.Dimension(120, 20));
 
         bgProcesadores.add(jPro2);
@@ -139,7 +165,6 @@ public class VentaGUI extends javax.swing.JFrame {
 
         bgProcesadores.add(jPro3);
         jPro3.setText("P4 Celeron");
-        jPro3.setActionCommand("P4 Celeron");
         jPro3.setEnabled(false);
         jPro3.setPreferredSize(new java.awt.Dimension(120, 20));
 
@@ -227,7 +252,6 @@ public class VentaGUI extends javax.swing.JFrame {
 
         jOpc3.setText("Sincronizador TV");
         jOpc3.setEnabled(false);
-        jOpc3.setPreferredSize(new java.awt.Dimension(120, 20));
 
         jBAdd.setText("Añadir");
         jBAdd.setEnabled(false);
@@ -272,6 +296,15 @@ public class VentaGUI extends javax.swing.JFrame {
             }
         });
 
+        jBEdi.setText("Editar**");
+        jBEdi.setEnabled(false);
+        jBEdi.setPreferredSize(new java.awt.Dimension(80, 30));
+        jBEdi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBEdiActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -308,7 +341,7 @@ public class VentaGUI extends javax.swing.JFrame {
                                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jOpc1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jOpc2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jOpc3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jOpc3)
                                     .addComponent(jOpc4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(80, 80, 80))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -342,6 +375,8 @@ public class VentaGUI extends javax.swing.JFrame {
                         .addComponent(jBBus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jBEli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBEdi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -412,7 +447,7 @@ public class VentaGUI extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jDis4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jOpc3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jOpc3)
                                 .addGap(18, 18, 18)
                                 .addComponent(jOpc4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(2, 2, 2)
@@ -422,7 +457,8 @@ public class VentaGUI extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jBAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBEli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBBus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jBBus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBEdi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(jBCan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -430,6 +466,23 @@ public class VentaGUI extends javax.swing.JFrame {
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(177, 177, 177))
         );
+
+        jPro1.setActionCommand("P4 3.0 Gb");
+        jPro2.setActionCommand("P4 3.2 Gb");
+        jPro3.setActionCommand("P4 Celeron");
+        jPro4.setActionCommand("AMD 650");
+        jMem1.setActionCommand("128Mb");
+        jMem2.setActionCommand("256Mb");
+        jMem3.setActionCommand("512Mb");
+        jMem4.setActionCommand("1024Mb");
+        jMon1.setActionCommand("15\"");
+        jMon2.setActionCommand("17\"");
+        jMon3.setActionCommand("TFT 15\"");
+        jMon4.setActionCommand("TFT 17\"");
+        jDis1.setActionCommand("60 Gb");
+        jDis2.setActionCommand("80 Gb");
+        jDis3.setActionCommand("120 Gb");
+        jDis4.setActionCommand("200 Gb");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -451,22 +504,75 @@ public class VentaGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jnombreClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jnombreClienteActionPerformed
-        booleanButtons(true);
-        jBAdd.setEnabled(true);
-        jBBus.setEnabled(true);
-        jLocalidad.grabFocus();
+        if (nombreCorrecto()){
+            booleanButtons(true);
+            jBAdd.setEnabled(true);
+            jBBus.setEnabled(true);
+            jLocalidad.grabFocus();
+        } else {
+            jnombreCliente.grabFocus();
+        }
+        
+
     }//GEN-LAST:event_jnombreClienteActionPerformed
 
     private void jBEliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliActionPerformed
-        booleanButtons(false);
-        jnombreCliente.setText("");
-        jnombreCliente.grabFocus();
+        String[] options = {"Eliminar", "Cancelar"};
+        int res = jOptEli1.showOptionDialog(
+                null,
+                "Deseas eliminar al usuario: " + jnombreCliente.getText(),
+                "Eliminar Venta",
+                jOptBus1.DEFAULT_OPTION,
+                jOptBus1.YES_NO_OPTION,
+                null,
+                options,
+                options[0]
+        );
+        
+        if (res==1){
+            jList1.clearSelection();
+        } else {
+            DefaultListModel demo = obtenerList();
+            demo.remove(jList1.getSelectedIndex());
+            listaVentas.remove(jList1.getSelectedIndex());
+            jList1.setModel(demo);
+            jnombreCliente.grabFocus();
+            jBEli.setEnabled(false);
+        }
+        
     }//GEN-LAST:event_jBEliActionPerformed
 
     private void jBBusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBusActionPerformed
-        booleanButtons(false);
-        jnombreCliente.setText("");
-        jnombreCliente.grabFocus();
+
+        int res = 0;
+        int indice = busquedaNom(jnombreCliente.getText(), 0);
+        if (indice == -1){
+            jOptBus1.showMessageDialog(null, "No se ha encontrado el cliente", "ResultadoBúsqueda", jOptBus1.INFORMATION_MESSAGE);
+        } else {
+            ArrayList<Venta> listaCliente = busquedaLista(jnombreCliente.getText());
+            while (res != 1){
+                String frase = listaCliente.get(indice).toString();
+                if (indice == listaCliente.size()-1){
+                    jOptBus1.showMessageDialog(null, frase, "ResultadoBúsqueda", jOptBus1.INFORMATION_MESSAGE);
+                    break;
+                } else {
+                    Object[] options = {"Volver a Buscar", "Ok"};
+                    res = jOptBus1.showOptionDialog(
+                        null,
+                        frase,
+                        "ResultadoBúsqueda",
+                        jOptBus1.DEFAULT_OPTION,
+                        jOptBus1.YES_NO_OPTION,
+                        null,
+                        options,
+                        options[0]);
+                    if (res == 0){
+                        indice += 1;
+                    }
+                }
+            }
+        }
+        
     }//GEN-LAST:event_jBBusActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -474,15 +580,47 @@ public class VentaGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jBCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCanActionPerformed
-        // TODO add your handling code here:
+        jnombreCliente.setText("");
+        jnombreCliente.grabFocus();
+        booleanButtons(false);
+        jBAdd.setEnabled(false);
+        jBBus.setEnabled(false);
     }//GEN-LAST:event_jBCanActionPerformed
 
     private void jBAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAddActionPerformed
         booleanButtons(false);
         listaVentas.add(crearVentas());
+        addVenta();
         jnombreCliente.setText("");
         jnombreCliente.grabFocus();
+        jBAdd.setEnabled(false);
+        jBBus.setEnabled(false);
     }//GEN-LAST:event_jBAddActionPerformed
+
+    private void jList1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jList1FocusGained
+        booleanButtons(false);
+        jBAdd.setEnabled(false);
+        jBBus.setEnabled(false);
+        jBEli.setEnabled(true);
+        jnombreCliente.setText(jList1.getSelectedValue());
+    }//GEN-LAST:event_jList1FocusGained
+
+    private void jList1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jList1FocusLost
+        //ToDo
+    }//GEN-LAST:event_jList1FocusLost
+
+    private void jBEdiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEdiActionPerformed
+        
+        // WORK IN PROGRESS DO NOT TOUCH
+        int lastIndex = 0;
+        if (busquedaNom(jnombreCliente.getText(), lastIndex) == -1){
+            jOptBus1.showMessageDialog(null, "No se han encontrado más ", "Formulario Finalizado", jOptBus1.INFORMATION_MESSAGE);
+        } else {
+            lastIndex = busquedaNom(jnombreCliente.getText(), lastIndex);
+            busquedaEst(lastIndex);
+        }
+        jnombreCliente.grabFocus();
+    }//GEN-LAST:event_jBEdiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -545,20 +683,114 @@ public class VentaGUI extends javax.swing.JFrame {
     public Venta crearVentas(){
         String nom = jnombreCliente.getText();
         String loc = (String)jLocalidad.getSelectedItem();
-        String pro = bgProcesadores.getSelection().toString();
-        String mem = bgMemoria.getSelection().toString();
-        String mon = bgMonitor.getSelection().toString();
-        String dis = bgDiscoDuro.getSelection().toString();
+        String pro = bgProcesadores.getSelection().getActionCommand();
+        String mem = bgMemoria.getSelection().getActionCommand();
+        String mon = bgMonitor.getSelection().getActionCommand();
+        String dis = bgDiscoDuro.getSelection().getActionCommand();
         boolean op1 = jOpc1.isSelected();
         boolean op2 = jOpc2.isSelected();
         boolean op3 = jOpc3.isSelected();
         boolean op4 = jOpc4.isSelected();
         Venta ven = new Venta(nom, loc, pro, mem, mon, dis, op1, op2, op3, op4);
+        System.out.println(ven);
         return ven;
+        
+    }
+    //Obtener jList como ArrayList<String>
+    public DefaultListModel obtenerList(){
+        DefaultListModel demo = new DefaultListModel();
+        ListModel limo = jList1.getModel();
+        for (int i = 0; i < limo.getSize(); i++){
+            demo.addElement(limo.getElementAt(i));
+        }
+        return demo;
     }
     
+    
     //Agregar Venta a JList
-    public addVenta
+    public void addVenta(){
+        DefaultListModel demo = obtenerList();
+        demo.addElement(jnombreCliente.getText());
+        jList1.setModel(demo);
+    }
+    
+    //Busqueda Nombre
+    /**
+     * Busca el nombre en la lista de ventas a partir del indice que se especifica
+     * 
+     * @param nombre Nombre del cliente a buscar en ventas
+     * @param start indice sobre el que empezar el bucle
+     * @return Indice del cliente el la lista Ventas
+     */
+    public int busquedaNom(String nombre, int start){
+        if (listaVentas.size() == 0) {return -1;}
+        else{
+            for (int i = start; i < listaVentas.size(); i++){
+                if (listaVentas.get(i).getNombreCliente().equals(nombre)){
+                    return i;
+                }
+            }
+            return -1;
+        }
+    }
+    
+    //localidadMap
+    public int localMap(String localidad){
+        ComboBoxModel cbm = jLocalidad.getModel();
+        for (int i = 0; i < cbm.getSize(); i++){
+            if (localidad.equals(cbm.getElementAt(i))){
+                return i;
+                }
+        }
+        return -1;
+    }
+       
+    //MapearBotones
+    public ButtonModel buttonMap(ButtonGroup bg, String boton){
+        Enumeration<AbstractButton> proElements = bg.getElements();
+        ArrayList<AbstractButton> buttonList = Collections.list(proElements);
+            for (AbstractButton botonLista: buttonList){
+                if (botonLista.getActionCommand().equals(boton)){
+                    return botonLista.getModel();
+                }
+            }
+        return null;
+        }
+    
+    
+    //Establecer Busqueda
+    public void busquedaEst(int indice){
+        Venta ven = listaVentas.get(indice);
+        jLocalidad.setSelectedIndex(localMap(ven.getLocalidad()));
+        bgProcesadores.setSelected(buttonMap(bgProcesadores, ven.getProcesador()), true);
+        bgMemoria.setSelected(buttonMap(bgMemoria, ven.getMemoria()), true);
+        bgMonitor.setSelected(buttonMap(bgMonitor, ven.getMonitor()), true);
+        bgDiscoDuro.setSelected(buttonMap(bgDiscoDuro, ven.getDiscoDuro()), true);
+    }
+    
+    /**
+     *
+     * @param nombre
+     * @return 
+     */
+    public ArrayList<Venta> busquedaLista(String nombre){
+        ArrayList<Venta> clie = new ArrayList<>();
+        for (int i = 0; i < listaVentas.size(); i++){
+            if (listaVentas.get(i).getNombreCliente().equals(nombre)){
+                clie.add(listaVentas.get(i));
+            }
+        }
+        return clie;
+    }
+    
+    public boolean nombreCorrecto(){
+        if (jnombreCliente.getText().isEmpty() || jnombreCliente.getText().length() >= 16){
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgDiscoDuro;
@@ -568,6 +800,7 @@ public class VentaGUI extends javax.swing.JFrame {
     private javax.swing.JButton jBAdd;
     private javax.swing.JButton jBBus;
     private javax.swing.JButton jBCan;
+    private javax.swing.JButton jBEdi;
     private javax.swing.JButton jBEli;
     private javax.swing.JButton jButton4;
     private javax.swing.JRadioButton jDis1;
@@ -596,6 +829,8 @@ public class VentaGUI extends javax.swing.JFrame {
     private javax.swing.JCheckBox jOpc2;
     private javax.swing.JCheckBox jOpc3;
     private javax.swing.JCheckBox jOpc4;
+    private javax.swing.JOptionPane jOptBus1;
+    private javax.swing.JOptionPane jOptEli1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jPro1;
     private javax.swing.JRadioButton jPro2;
