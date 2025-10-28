@@ -250,7 +250,7 @@ public class VentaGUI extends javax.swing.JFrame {
         jOpc4.setEnabled(false);
         jOpc4.setPreferredSize(new java.awt.Dimension(120, 20));
 
-        jOpc3.setText("Sincronizador TV");
+        jOpc3.setText("Sintonizador TV");
         jOpc3.setEnabled(false);
 
         jBAdd.setText("Añadir");

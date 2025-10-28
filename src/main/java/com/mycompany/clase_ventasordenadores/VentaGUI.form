@@ -681,7 +681,7 @@
         </Component>
         <Component class="javax.swing.JCheckBox" name="jOpc3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Sincronizador TV"/>
+            <Property name="text" type="java.lang.String" value="Sintonizador TV"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>

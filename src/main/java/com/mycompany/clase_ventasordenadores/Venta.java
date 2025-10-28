@@ -17,14 +17,14 @@ public class Venta {
     private String discoDuro;
     private boolean grabadoraDVD;
     private boolean wifi;
-    private boolean sincronizadorTV;
+    private boolean sintonizadorTV;
     private boolean backUpRestore;
 
     
     //Constructor Venta
 
 
-    public Venta(String nombreCliente, String localidad, String procesador, String memoria, String monitor, String discoDuro, boolean grabadoraDVD, boolean wifi, boolean sincronizadorTV, boolean backUpRestore) {
+    public Venta(String nombreCliente, String localidad, String procesador, String memoria, String monitor, String discoDuro, boolean grabadoraDVD, boolean wifi, boolean sintonizadorTV, boolean backUpRestore) {
         this.nombreCliente = nombreCliente;
         this.localidad = localidad;
         this.procesador = procesador;
@@ -33,7 +33,7 @@ public class Venta {
         this.discoDuro = discoDuro;
         this.grabadoraDVD = grabadoraDVD;
         this.wifi = wifi;
-        this.sincronizadorTV = sincronizadorTV;
+        this.sintonizadorTV = sintonizadorTV;
         this.backUpRestore = backUpRestore;
     }
 
@@ -94,11 +94,11 @@ public class Venta {
     }
 
     public boolean isSincronizadorTV() {
-        return sincronizadorTV;
+        return sintonizadorTV;
     }
 
     public void setSincronizadorTV(boolean sincronizadorTV) {
-        this.sincronizadorTV = sincronizadorTV;
+        this.sintonizadorTV = sincronizadorTV;
     }
 
     public boolean isBackUpRestore() {
@@ -119,7 +119,17 @@ public class Venta {
 
     @Override
     public String toString() {
-        return "Ventas{" + "nombreCliente=" + nombreCliente + ", localidad=" + localidad + ", procesador=" + procesador + ", memoria=" + memoria + ", monitor=" + monitor + ", discoDuro=" + discoDuro + ", grabadoraDVD=" + grabadoraDVD + ", wifi=" + wifi + ", sincronizadorTV=" + sincronizadorTV + ", backUpRestore=" + backUpRestore + '}';
+        String opciones = "";
+        return "Nombre del Cliente: " + nombreCliente + "\n" + 
+                "Localidad:" + localidad + "\n" + 
+                "Procesador=" + procesador  + "\n" + 
+                "memoria=" + memoria + "\n" + 
+                "Monitor=" + monitor + "\n" +
+                "DiscoDuro=" + discoDuro + "\n" +
+                "Grabadora DVD=" + grabadoraDVD + "\n" + 
+                "Wifi=" + wifi + "\n" +
+                "SintonizadorTV=" + sintonizadorTV + "\n" +
+                "BackUp/Restore=" + backUpRestore;
     }
     
     
