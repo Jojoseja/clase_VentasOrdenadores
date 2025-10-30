@@ -61,8 +61,6 @@ public class VentaGUI extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jSList1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
         jLabel8 = new javax.swing.JLabel();
         jPro1 = new javax.swing.JRadioButton();
         jPro2 = new javax.swing.JRadioButton();
@@ -89,9 +87,11 @@ public class VentaGUI extends javax.swing.JFrame {
         jBBus = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jBCan = new javax.swing.JButton();
-        jBEdi = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setEnabled(false);
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 600));
@@ -132,20 +132,6 @@ public class VentaGUI extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
         jLabel7.setText("Disco Duro");
         jLabel7.setPreferredSize(new java.awt.Dimension(80, 20));
-
-        jList1.setAutoscrolls(false);
-        jList1.setDragEnabled(true);
-        jList1.setPreferredSize(new java.awt.Dimension(120, 20));
-        jList1.setVisibleRowCount(3);
-        jList1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jList1FocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jList1FocusLost(evt);
-            }
-        });
-        jSList1.setViewportView(jList1);
 
         jLabel8.setFont(new java.awt.Font("sansserif", 1, 13)); // NOI18N
         jLabel8.setText("Opciones");
@@ -296,14 +282,11 @@ public class VentaGUI extends javax.swing.JFrame {
             }
         });
 
-        jBEdi.setText("Editar**");
-        jBEdi.setEnabled(false);
-        jBEdi.setPreferredSize(new java.awt.Dimension(80, 30));
-        jBEdi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBEdiActionPerformed(evt);
-            }
-        });
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(280, 140));
+        jScrollPane1.setViewportView(jList1);
+
+        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(jList1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -329,14 +312,25 @@ public class VentaGUI extends javax.swing.JFrame {
                                     .addComponent(jMon3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jMon2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jMon1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(29, 29, 29)
+                                .addGap(29, 29, 29))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jnombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(62, 62, 62)
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jDis4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jDis3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jDis2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jDis1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jOpc1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -344,18 +338,9 @@ public class VentaGUI extends javax.swing.JFrame {
                                     .addComponent(jOpc3)
                                     .addComponent(jOpc4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(80, 80, 80))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jnombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel3)
-                                        .addGap(49, 49, 49)))
-                                .addComponent(jSList1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(112, 112, 112))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPro4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -375,8 +360,6 @@ public class VentaGUI extends javax.swing.JFrame {
                         .addComponent(jBBus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jBEli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jBEdi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -386,20 +369,26 @@ public class VentaGUI extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jnombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
+                            .addComponent(jnombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(35, 35, 35)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jSList1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(jLabel3)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -457,8 +446,7 @@ public class VentaGUI extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jBAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBEli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBBus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBEdi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jBBus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(jBCan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -501,6 +489,7 @@ public class VentaGUI extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jnombreClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jnombreClienteActionPerformed
@@ -536,8 +525,9 @@ public class VentaGUI extends javax.swing.JFrame {
             demo.remove(jList1.getSelectedIndex());
             listaVentas.remove(jList1.getSelectedIndex());
             jList1.setModel(demo);
-            jnombreCliente.grabFocus();
             jBEli.setEnabled(false);
+            jnombreCliente.grabFocus();
+            
         }
         
     }//GEN-LAST:event_jBEliActionPerformed
@@ -596,31 +586,6 @@ public class VentaGUI extends javax.swing.JFrame {
         jBAdd.setEnabled(false);
         jBBus.setEnabled(false);
     }//GEN-LAST:event_jBAddActionPerformed
-
-    private void jList1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jList1FocusGained
-        booleanButtons(false);
-        jBAdd.setEnabled(false);
-        jBBus.setEnabled(false);
-        jBEli.setEnabled(true);
-        jnombreCliente.setText(jList1.getSelectedValue());
-    }//GEN-LAST:event_jList1FocusGained
-
-    private void jList1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jList1FocusLost
-        //ToDo
-    }//GEN-LAST:event_jList1FocusLost
-
-    private void jBEdiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEdiActionPerformed
-        
-        // WORK IN PROGRESS DO NOT TOUCH
-        int lastIndex = 0;
-        if (busquedaNom(jnombreCliente.getText(), lastIndex) == -1){
-            jOptBus1.showMessageDialog(null, "No se han encontrado más ", "Formulario Finalizado", jOptBus1.INFORMATION_MESSAGE);
-        } else {
-            lastIndex = busquedaNom(jnombreCliente.getText(), lastIndex);
-            busquedaEst(lastIndex);
-        }
-        jnombreCliente.grabFocus();
-    }//GEN-LAST:event_jBEdiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -791,6 +756,56 @@ public class VentaGUI extends javax.swing.JFrame {
         }
     }
     
+    public void escogerVenta(Venta ven){
+        //Localidad
+        jLocalidad.setSelectedItem((String) ven.getLocalidad());
+        
+        //Procesadores
+        Enumeration<AbstractButton> enu1 = bgProcesadores.getElements();
+        while (enu1.hasMoreElements()){
+            AbstractButton ab1 = enu1.nextElement();
+            if (ab1.getActionCommand().equals(ven.getProcesador())){
+                bgProcesadores.setSelected(ab1.getModel(), true);
+            }
+        }
+        
+        //Memoria
+        Enumeration<AbstractButton> enu2 = bgMemoria.getElements();
+        while (enu2.hasMoreElements()){
+            AbstractButton ab2 = enu2.nextElement();
+            if (ab2.getActionCommand().equals(ven.getMemoria())){
+                bgMemoria.setSelected(ab2.getModel(), true);
+            }
+        }
+        
+        //Monitor
+        Enumeration<AbstractButton> enu3 = bgMonitor.getElements();
+        while (enu3.hasMoreElements()){
+            AbstractButton ab3 = enu3.nextElement();
+            if (ab3.getActionCommand().equals(ven.getMonitor())){
+                bgMonitor.setSelected(ab3.getModel(), true);
+            }
+        }
+        
+        //Disco Duro
+        Enumeration<AbstractButton> enu4 = bgDiscoDuro.getElements();
+        while (enu4.hasMoreElements()){
+            AbstractButton ab4 = enu4.nextElement();
+            if (ab4.getActionCommand().equals(ven.getMonitor())){
+                bgDiscoDuro.setSelected(ab4.getModel(), true);
+            }
+        }
+        
+        //Opciones
+        jOpc1.setSelected(ven.isGrabadoraDVD());
+        jOpc2.setSelected(ven.isWifi());
+        jOpc3.setSelected(ven.isSincronizadorTV());
+        jOpc4.setSelected(ven.isBackUpRestore());
+        
+        booleanButtons(false);
+        
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgDiscoDuro;
@@ -800,7 +815,6 @@ public class VentaGUI extends javax.swing.JFrame {
     private javax.swing.JButton jBAdd;
     private javax.swing.JButton jBBus;
     private javax.swing.JButton jBCan;
-    private javax.swing.JButton jBEdi;
     private javax.swing.JButton jBEli;
     private javax.swing.JButton jButton4;
     private javax.swing.JRadioButton jDis1;
@@ -836,7 +850,7 @@ public class VentaGUI extends javax.swing.JFrame {
     private javax.swing.JRadioButton jPro2;
     private javax.swing.JRadioButton jPro3;
     private javax.swing.JRadioButton jPro4;
-    private javax.swing.JScrollPane jSList1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jnombreCliente;
     // End of variables declaration//GEN-END:variables
 }
