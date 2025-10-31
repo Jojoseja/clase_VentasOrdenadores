@@ -102,6 +102,11 @@ public class VentaGUI extends javax.swing.JFrame {
         jnombreCliente.setToolTipText("");
         jnombreCliente.setMinimumSize(new java.awt.Dimension(120, 40));
         jnombreCliente.setPreferredSize(new java.awt.Dimension(120, 30));
+        jnombreCliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jnombreClienteFocusGained(evt);
+            }
+        });
         jnombreCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jnombreClienteActionPerformed(evt);
@@ -286,6 +291,16 @@ public class VentaGUI extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jList1);
 
         jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jList1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jList1FocusLost(evt);
+            }
+        });
+        jList1.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jList1ValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(jList1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -316,10 +331,8 @@ public class VentaGUI extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jnombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addGap(62, 62, 62)
+                                    .addComponent(jnombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -493,6 +506,7 @@ public class VentaGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jnombreClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jnombreClienteActionPerformed
+        setDefault();
         if (nombreCorrecto()){
             booleanButtons(true);
             jBAdd.setEnabled(true);
@@ -537,10 +551,12 @@ public class VentaGUI extends javax.swing.JFrame {
         int res = 0;
         int indice = busquedaNom(jnombreCliente.getText(), 0);
         if (indice == -1){
+            setDefault();
             jOptBus1.showMessageDialog(null, "No se ha encontrado el cliente", "ResultadoBúsqueda", jOptBus1.INFORMATION_MESSAGE);
         } else {
             ArrayList<Venta> listaCliente = busquedaLista(jnombreCliente.getText());
             while (res != 1){
+                escogerVenta(listaCliente.get(indice));
                 String frase = listaCliente.get(indice).toString();
                 if (indice == listaCliente.size()-1){
                     jOptBus1.showMessageDialog(null, frase, "ResultadoBúsqueda", jOptBus1.INFORMATION_MESSAGE);
@@ -557,6 +573,7 @@ public class VentaGUI extends javax.swing.JFrame {
                         options,
                         options[0]);
                     if (res == 0){
+                        setDefault();
                         indice += 1;
                     }
                 }
@@ -585,7 +602,26 @@ public class VentaGUI extends javax.swing.JFrame {
         jnombreCliente.grabFocus();
         jBAdd.setEnabled(false);
         jBBus.setEnabled(false);
+        setDefault();
     }//GEN-LAST:event_jBAddActionPerformed
+
+    private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
+        if (!(jList1.getSelectedIndex() == -1)){
+            jBEli.setEnabled(true);
+            escogerVenta(listaVentas.get(jList1.getSelectedIndex()));
+        } else {
+            jBEli.setEnabled(false);
+        }
+    }//GEN-LAST:event_jList1ValueChanged
+
+    private void jList1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jList1FocusLost
+        jList1.clearSelection();
+
+    }//GEN-LAST:event_jList1FocusLost
+
+    private void jnombreClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jnombreClienteFocusGained
+        setDefault();
+    }//GEN-LAST:event_jnombreClienteFocusGained
 
     /**
      * @param args the command line arguments
@@ -804,6 +840,53 @@ public class VentaGUI extends javax.swing.JFrame {
         
         booleanButtons(false);
         
+    }
+    
+    public void setDefault(){
+        //Localidad
+        jLocalidad.setSelectedItem("Villalba");
+        
+        //Procesadores
+        Enumeration<AbstractButton> enu1 = bgProcesadores.getElements();
+        while (enu1.hasMoreElements()){
+            AbstractButton ab1 = enu1.nextElement();
+            if (ab1.getActionCommand().equals("P4 3.0 Gb")){
+                bgProcesadores.setSelected(ab1.getModel(), true);
+            }
+        }
+        
+        //Memoria
+        Enumeration<AbstractButton> enu2 = bgMemoria.getElements();
+        while (enu2.hasMoreElements()){
+            AbstractButton ab2 = enu2.nextElement();
+            if (ab2.getActionCommand().equals("128Mb")){
+                bgMemoria.setSelected(ab2.getModel(), true);
+            }
+        }
+        
+        //Monitor
+        Enumeration<AbstractButton> enu3 = bgMonitor.getElements();
+        while (enu3.hasMoreElements()){
+            AbstractButton ab3 = enu3.nextElement();
+            if (ab3.getActionCommand().equals("15\"")){
+                bgMonitor.setSelected(ab3.getModel(), true);
+            }
+        }
+        
+        //Disco Duro
+        Enumeration<AbstractButton> enu4 = bgDiscoDuro.getElements();
+        while (enu4.hasMoreElements()){
+            AbstractButton ab4 = enu4.nextElement();
+            if (ab4.getActionCommand().equals("60 Gb")){
+                bgDiscoDuro.setSelected(ab4.getModel(), true);
+            }
+        }
+        
+        //Opciones
+        jOpc1.setSelected(true);
+        jOpc2.setSelected(true);
+        jOpc3.setSelected(false);
+        jOpc4.setSelected(false);        
     }
     
 
