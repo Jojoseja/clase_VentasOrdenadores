@@ -16,6 +16,7 @@ import javax.swing.ButtonModel;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.ListModel;
 
@@ -91,10 +92,11 @@ public class VentaGUI extends javax.swing.JFrame {
         jList1 = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(760, 440));
         setResizable(false);
 
         jPanel1.setEnabled(false);
-        jPanel1.setPreferredSize(new java.awt.Dimension(800, 600));
+        jPanel1.setPreferredSize(new java.awt.Dimension(760, 440));
 
         jLabel1.setText("Nombre del Cliente");
         jLabel1.setPreferredSize(new java.awt.Dimension(120, 20));
@@ -491,20 +493,24 @@ public class VentaGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 761, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 171, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    /**
+     * Al 
+     * @param evt 
+     */
     private void jnombreClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jnombreClienteActionPerformed
         setDefault();
         if (nombreCorrecto()){
@@ -512,6 +518,7 @@ public class VentaGUI extends javax.swing.JFrame {
             jBAdd.setEnabled(true);
             jBBus.setEnabled(true);
             jLocalidad.grabFocus();
+            //jnombreCliente.setEnabled(false);
         } else {
             jnombreCliente.grabFocus();
         }
@@ -521,6 +528,7 @@ public class VentaGUI extends javax.swing.JFrame {
 
     private void jBEliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliActionPerformed
         String[] options = {"Eliminar", "Cancelar"};
+        jnombreCliente.setText(jList1.getSelectedValue());
         int res = jOptEli1.showOptionDialog(
                 null,
                 "Deseas eliminar al usuario: " + jnombreCliente.getText(),
@@ -531,7 +539,6 @@ public class VentaGUI extends javax.swing.JFrame {
                 options,
                 options[0]
         );
-        
         if (res==1){
             jList1.clearSelection();
         } else {
@@ -540,8 +547,7 @@ public class VentaGUI extends javax.swing.JFrame {
             listaVentas.remove(jList1.getSelectedIndex());
             jList1.setModel(demo);
             jBEli.setEnabled(false);
-            jnombreCliente.grabFocus();
-            
+            jnombreCliente.setText("");
         }
         
     }//GEN-LAST:event_jBEliActionPerformed
@@ -549,26 +555,35 @@ public class VentaGUI extends javax.swing.JFrame {
     private void jBBusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBusActionPerformed
 
         int res = 0;
-        int indice = busquedaNom(jnombreCliente.getText(), 0);
-        if (indice == -1){
+        jBAdd.setEnabled(false);
+        jnombreCliente.setEnabled(true);
+       
+        String nombre = jnombreCliente.getText();
+        ArrayList<Venta> ventaFiltro = busquedaLista(nombre);
+        
+        if (ventaFiltro.size() == -1){
             setDefault();
             jOptBus1.showMessageDialog(null, "No se ha encontrado el cliente", "ResultadoBúsqueda", jOptBus1.INFORMATION_MESSAGE);
+
         } else {
-            ArrayList<Venta> listaCliente = busquedaLista(jnombreCliente.getText());
+            int indice = 0;
             while (res != 1){
-                escogerVenta(listaCliente.get(indice));
-                String frase = listaCliente.get(indice).toString();
-                if (indice == listaCliente.size()-1){
-                    jOptBus1.showMessageDialog(null, frase, "ResultadoBúsqueda", jOptBus1.INFORMATION_MESSAGE);
+                escogerVenta(ventaFiltro.get(indice));
+                if (indice == ventaFiltro.size()-1){
+                    jOptBus1.showMessageDialog(
+                            null,
+                            "Último usuario con nombre: " + jnombreCliente.getText(),
+                            "ResultadoBúsqueda",
+                            jOptBus1.INFORMATION_MESSAGE);
                     break;
                 } else {
-                    Object[] options = {"Volver a Buscar", "Ok"};
+                    Object[] options = {"Si", "No"};
                     res = jOptBus1.showOptionDialog(
                         null,
-                        frase,
-                        "ResultadoBúsqueda",
-                        jOptBus1.DEFAULT_OPTION,
+                        "Se han encontrado varias ventas. ¿Quiere ver la siguiente?",
+                        "¿Quiere Buscar Otra Venta?",
                         jOptBus1.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
                         null,
                         options,
                         options[0]);
@@ -615,12 +630,13 @@ public class VentaGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jList1ValueChanged
 
     private void jList1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jList1FocusLost
-        jList1.clearSelection();
+        //jList1.clearSelection();
 
     }//GEN-LAST:event_jList1FocusLost
 
     private void jnombreClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jnombreClienteFocusGained
         setDefault();
+        jList1.clearSelection();
     }//GEN-LAST:event_jnombreClienteFocusGained
 
     /**
@@ -651,7 +667,14 @@ public class VentaGUI extends javax.swing.JFrame {
     }
     
     //Metodos
+    
+    /**
+     * Activa o desactiva los botones en funcion del valor de attr
+     * @param attr 
+     */
     public void booleanButtons(boolean attr){
+        //jnombreCliente.setEnabled(!attr);
+        jnombreCliente.setEnabled(!attr);
         //Localidad
         jLocalidad.setEnabled(attr);
         //Grupo Procesadores
@@ -681,6 +704,11 @@ public class VentaGUI extends javax.swing.JFrame {
         jOpc4.setEnabled(attr);   
     }
     
+    
+    /**
+     * Crea un objeto Venta las opciones seleccionadas
+     * @return Objeto Venta creado
+     */
     public Venta crearVentas(){
         String nom = jnombreCliente.getText();
         String loc = (String)jLocalidad.getSelectedItem();
@@ -693,11 +721,15 @@ public class VentaGUI extends javax.swing.JFrame {
         boolean op3 = jOpc3.isSelected();
         boolean op4 = jOpc4.isSelected();
         Venta ven = new Venta(nom, loc, pro, mem, mon, dis, op1, op2, op3, op4);
-        System.out.println(ven);
         return ven;
         
     }
-    //Obtener jList como ArrayList<String>
+    
+    
+    /**
+     * Devuelve un objeto DefaultListModel de la Lista Clientes, método auxiliar para addVenta()
+     * @return DefaultList de jList1 (lista clientes)
+     */
     public DefaultListModel obtenerList(){
         DefaultListModel demo = new DefaultListModel();
         ListModel limo = jList1.getModel();
@@ -708,34 +740,20 @@ public class VentaGUI extends javax.swing.JFrame {
     }
     
     
-    //Agregar Venta a JList
+    /**
+     * Agrega el nombre del cliente a la lista cliente
+     */
     public void addVenta(){
         DefaultListModel demo = obtenerList();
         demo.addElement(jnombreCliente.getText());
         jList1.setModel(demo);
     }
     
-    //Busqueda Nombre
     /**
-     * Busca el nombre en la lista de ventas a partir del indice que se especifica
-     * 
-     * @param nombre Nombre del cliente a buscar en ventas
-     * @param start indice sobre el que empezar el bucle
-     * @return Indice del cliente el la lista Ventas
+     * Devuelve el indice correspondiente al String localidad de la caja Localidad
+     * @param localidad - String a devolver el indice de la caja localidad
+     * @return el indice correspondiente en localidad
      */
-    public int busquedaNom(String nombre, int start){
-        if (listaVentas.size() == 0) {return -1;}
-        else{
-            for (int i = start; i < listaVentas.size(); i++){
-                if (listaVentas.get(i).getNombreCliente().equals(nombre)){
-                    return i;
-                }
-            }
-            return -1;
-        }
-    }
-    
-    //localidadMap
     public int localMap(String localidad){
         ComboBoxModel cbm = jLocalidad.getModel();
         for (int i = 0; i < cbm.getSize(); i++){
@@ -746,7 +764,12 @@ public class VentaGUI extends javax.swing.JFrame {
         return -1;
     }
        
-    //MapearBotones
+    /**
+     * Devuelve el ButtonModel del boton correspondiente al grupo que se introduzca como parametro
+     * @param bg ButtonGroup al que corresponde
+     * @param boton String actionCommand() del boton (idéntico al nombre)
+     * @return El ButtonModel del botón correspondiente
+     */
     public ButtonModel buttonMap(ButtonGroup bg, String boton){
         Enumeration<AbstractButton> proElements = bg.getElements();
         ArrayList<AbstractButton> buttonList = Collections.list(proElements);
@@ -759,20 +782,10 @@ public class VentaGUI extends javax.swing.JFrame {
         }
     
     
-    //Establecer Busqueda
-    public void busquedaEst(int indice){
-        Venta ven = listaVentas.get(indice);
-        jLocalidad.setSelectedIndex(localMap(ven.getLocalidad()));
-        bgProcesadores.setSelected(buttonMap(bgProcesadores, ven.getProcesador()), true);
-        bgMemoria.setSelected(buttonMap(bgMemoria, ven.getMemoria()), true);
-        bgMonitor.setSelected(buttonMap(bgMonitor, ven.getMonitor()), true);
-        bgDiscoDuro.setSelected(buttonMap(bgDiscoDuro, ven.getDiscoDuro()), true);
-    }
-    
     /**
-     *
-     * @param nombre
-     * @return 
+     * Devuelve un ArrayList<Venta> con las ventas cuyo cliente sea "nombre"
+     * @param nombre Nombre a filtrar de listaVentas
+     * @return ArrayList<Venta> filtrada por "nombre"
      */
     public ArrayList<Venta> busquedaLista(String nombre){
         ArrayList<Venta> clie = new ArrayList<>();
@@ -784,6 +797,10 @@ public class VentaGUI extends javax.swing.JFrame {
         return clie;
     }
     
+    /**
+     * Valida el nombre de jnombreCliente
+     * @return true si el nombre es válido (Entre 16 y 1 letras) y false si no lo es
+     */
     public boolean nombreCorrecto(){
         if (jnombreCliente.getText().isEmpty() || jnombreCliente.getText().length() >= 16){
             return false;
@@ -792,6 +809,10 @@ public class VentaGUI extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Muestra en la interfaz los valores correspondientes a la Venta "ven"
+     * @param ven Venta a mostrar en la interfaz
+     */
     public void escogerVenta(Venta ven){
         //Localidad
         jLocalidad.setSelectedItem((String) ven.getLocalidad());
@@ -827,7 +848,7 @@ public class VentaGUI extends javax.swing.JFrame {
         Enumeration<AbstractButton> enu4 = bgDiscoDuro.getElements();
         while (enu4.hasMoreElements()){
             AbstractButton ab4 = enu4.nextElement();
-            if (ab4.getActionCommand().equals(ven.getMonitor())){
+            if (ab4.getActionCommand().equals(ven.getDiscoDuro())){
                 bgDiscoDuro.setSelected(ab4.getModel(), true);
             }
         }
@@ -842,6 +863,9 @@ public class VentaGUI extends javax.swing.JFrame {
         
     }
     
+    /**
+     * Establece en la interfaz los valores por defecto
+     */
     public void setDefault(){
         //Localidad
         jLocalidad.setSelectedItem("Villalba");
