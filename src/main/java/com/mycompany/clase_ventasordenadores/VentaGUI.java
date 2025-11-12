@@ -90,6 +90,8 @@ public class VentaGUI extends javax.swing.JFrame {
         jBCan = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
+        jBGVe = new javax.swing.JButton();
+        jBMVe = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(760, 440));
@@ -305,6 +307,22 @@ public class VentaGUI extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jList1);
 
+        jBGVe.setText("Guardar Ventas");
+        jBGVe.setPreferredSize(new java.awt.Dimension(130, 30));
+        jBGVe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBGVeActionPerformed(evt);
+            }
+        });
+
+        jBMVe.setText("Mostrar Ventas");
+        jBMVe.setPreferredSize(new java.awt.Dimension(130, 30));
+        jBMVe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBMVeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -375,6 +393,10 @@ public class VentaGUI extends javax.swing.JFrame {
                         .addComponent(jBBus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jBEli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jBMVe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBGVe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -461,7 +483,9 @@ public class VentaGUI extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jBAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBEli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBBus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jBBus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBGVe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBMVe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(jBCan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -638,6 +662,33 @@ public class VentaGUI extends javax.swing.JFrame {
         setDefault();
         jList1.clearSelection();
     }//GEN-LAST:event_jnombreClienteFocusGained
+
+    private void jBGVeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGVeActionPerformed
+        GestorVentas gv = new GestorVentas();
+        
+        gv.escribirVentas(listaVentas);
+        
+        
+        DefaultListModel model = new DefaultListModel();
+        jList1.setModel(model);
+        listaVentas.clear();
+    }//GEN-LAST:event_jBGVeActionPerformed
+
+    private void jBMVeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBMVeActionPerformed
+        GestorVentas gv = new GestorVentas();
+        listaVentas = gv.leerVentas();
+        
+        DefaultListModel model = new DefaultListModel();
+        for (Venta ven : listaVentas){
+            model.addElement(ven.getNombreCliente());
+        }
+        
+        jList1.setModel(model);
+        
+        gv.borrarDatos();
+        
+         
+    }//GEN-LAST:event_jBMVeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -923,6 +974,8 @@ public class VentaGUI extends javax.swing.JFrame {
     private javax.swing.JButton jBBus;
     private javax.swing.JButton jBCan;
     private javax.swing.JButton jBEli;
+    private javax.swing.JButton jBGVe;
+    private javax.swing.JButton jBMVe;
     private javax.swing.JButton jButton4;
     private javax.swing.JRadioButton jDis1;
     private javax.swing.JRadioButton jDis2;

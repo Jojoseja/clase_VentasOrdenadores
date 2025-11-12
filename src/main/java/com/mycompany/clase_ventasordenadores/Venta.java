@@ -4,11 +4,16 @@
 
 package com.mycompany.clase_ventasordenadores;
 
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+
 /**
  *
  * @author jojo
  */
-public class Venta {
+public class Venta implements Externalizable{
     private String nombreCliente;
     private String localidad;
     private String procesador;
@@ -22,6 +27,10 @@ public class Venta {
 
     
     //Constructor Venta
+
+    public Venta() {
+    }
+    
 
 
     public Venta(String nombreCliente, String localidad, String procesador, String memoria, String monitor, String discoDuro, boolean grabadoraDVD, boolean wifi, boolean sintonizadorTV, boolean backUpRestore) {
@@ -123,13 +132,41 @@ public class Venta {
         return "Nombre del Cliente: " + nombreCliente + "\n" + 
                 "Localidad:" + localidad + "\n" + 
                 "Procesador=" + procesador  + "\n" + 
-                "memoria=" + memoria + "\n" + 
+                "Memoria=" + memoria + "\n" + 
                 "Monitor=" + monitor + "\n" +
                 "DiscoDuro=" + discoDuro + "\n" +
                 "Grabadora DVD=" + grabadoraDVD + "\n" + 
                 "Wifi=" + wifi + "\n" +
                 "SintonizadorTV=" + sintonizadorTV + "\n" +
                 "BackUp/Restore=" + backUpRestore;
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput oo) throws IOException {
+        oo.writeUTF(this.nombreCliente);
+        oo.writeUTF(this.localidad);
+        oo.writeUTF(this.procesador);
+        oo.writeUTF(this.memoria);
+        oo.writeUTF(this.monitor);
+        oo.writeUTF(this.discoDuro);
+        oo.writeBoolean(this.grabadoraDVD);
+        oo.writeBoolean(this.wifi);
+        oo.writeBoolean(this.sintonizadorTV);
+        oo.writeBoolean(this.backUpRestore);
+    }
+
+    @Override
+    public void readExternal(ObjectInput oi) throws IOException, ClassNotFoundException {
+        this.nombreCliente = oi.readUTF();
+        this.localidad = oi.readUTF();
+        this.procesador = oi.readUTF();
+        this.memoria = oi.readUTF();
+        this.monitor = oi.readUTF();
+        this.discoDuro = oi.readUTF();
+        this.grabadoraDVD = oi.readBoolean();
+        this.wifi = oi.readBoolean();
+        this.sintonizadorTV = oi.readBoolean();
+        this.backUpRestore = oi.readBoolean();
     }
     
     
