@@ -205,10 +205,10 @@ public class Venta implements Externalizable{
         this.memoria = partes[3];
         this.monitor = partes[4];
         this.discoDuro = partes[5];
-        //this.grabadoraDVD = partes[6].;
-        //this.wifi = partes[7];
-        //this.sintonizadorTV = partes[8];
-        //this.backUpRestore = partes[9]
+        this.grabadoraDVD = Boolean.valueOf(partes[6]);
+        this.wifi = Boolean.valueOf(partes[7]);
+        this.sintonizadorTV = Boolean.valueOf(partes[8]);
+        this.backUpRestore = Boolean.valueOf(partes[9]);
     }
     
     

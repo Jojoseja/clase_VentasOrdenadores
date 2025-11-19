@@ -4,10 +4,12 @@
  */
 package com.mycompany.clase_ventasordenadores;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -96,17 +98,103 @@ public class GestorVentas {
         
     } 
     
-    public void borrarDatos(){
+        public void borrarDatos(){
         Path pathArchivoDat = Path.of(String.valueOf(pathRecursos), "archivo.dat");
         File archivoDat = new File(String.valueOf(pathArchivoDat));
+        
+        
         try (BufferedWriter bfw = new BufferedWriter(new FileWriter(archivoDat))) {
             bfw.write("");
         } catch (Exception e) {System.out.println(e.getMessage());}
     }
+    
+    
     
     public boolean fileRead(){
         Path pathArchivoDat = Path.of(String.valueOf(pathRecursos), "archivo.dat");
         File archivoDat = new File(String.valueOf(pathArchivoDat));
         return !(archivoDat.length() == 0);
     }
+    
+    
+    //Obtener ArrayList<Venta> del archivo.dat
+    public ArrayList<Venta> leerVentasCSV(){
+        ArrayList<Venta> listaVentas = new ArrayList<>();
+        
+        if (!carpetaRecursos.exists()){
+            System.out.println("Creando carpetas y archivos...");
+            carpetaRecursos.mkdirs();
+        }
+        
+        Path pathArchivoCSV = Path.of(String.valueOf(pathRecursos), "archivo.csv");
+        File archivoCSV = new File(String.valueOf(pathArchivoCSV));
+        
+        try (BufferedReader br = new BufferedReader(new FileReader(archivoCSV))){
+            String line = "";
+            
+            while ((line = br.readLine())!= null){
+                Venta aux = new Venta();
+                aux.readCSV(line);
+                listaVentas.add(aux);
+            }
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        
+        
+        return listaVentas;
+    }
+    
+    
+    // Escribir Venta CSV
+    public void escribirVentasCSV(ArrayList<Venta> listaVentas){
+        
+        //ToDo: Agregar las listas ya existentes
+        if (!carpetaRecursos.exists()){
+            System.out.println("Creando carpetas y archivos...");
+            carpetaRecursos.mkdirs();
+        } else {
+            ArrayList<Venta> ventaArchivos = this.leerVentasCSV();
+            listaVentas.addAll(0, ventaArchivos);
+        }
+        
+        
+        Path pathArchivoCSV = Path.of(String.valueOf(pathRecursos), "archivo.csv");
+        File archivoCSV = new File(String.valueOf(pathArchivoCSV));
+        
+        
+        
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivoCSV))){
+            
+            for (Venta ven : listaVentas){
+                bw.write(ven.writeCSV());
+                bw.newLine();
+            }
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+    } 
+    
+    
+    public void borrarDatosCSV(){
+        Path pathArchivoCSV = Path.of(String.valueOf(pathRecursos), "archivo.csv");
+        File archivoCSV = new File(String.valueOf(pathArchivoCSV));
+        
+        
+        try (BufferedWriter bfw = new BufferedWriter(new FileWriter(archivoCSV))) {
+            bfw.write("");
+        } catch (Exception e) {System.out.println(e.getMessage());}
+    }
+    
+    public boolean fileReadCSV(){
+        Path pathArchivoCSV = Path.of(String.valueOf(pathRecursos), "archivo.csv");
+        File archivoCSV = new File(String.valueOf(pathArchivoCSV));
+        return !(archivoCSV.length() == 0);
+    }
+    
+
 }

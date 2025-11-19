@@ -689,6 +689,28 @@ public class VentaGUI extends javax.swing.JFrame {
     
     //Muestra las ventas del archivo ventas, si han sido cargadas se deben guardar previamente
     private void jBGVeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGVeActionPerformed
+       
+        //Modelo CSV
+        if (listaVentas.isEmpty()){
+            jOptBus1.showMessageDialog(
+                null,
+                "No hay ventas en la lista",
+                "No hay ventas en la lista",
+                jOptBus1.INFORMATION_MESSAGE);
+        } else {
+        
+            GestorVentas gv = new GestorVentas();
+
+            gv.escribirVentasCSV(listaVentas);
+
+
+            DefaultListModel model = new DefaultListModel();
+            jList1.setModel(model);
+            listaVentas.clear();
+        }
+        
+        //Modelo DAT
+        /*
         if (listaVentas.isEmpty()){
             jOptBus1.showMessageDialog(
                 null,
@@ -706,11 +728,27 @@ public class VentaGUI extends javax.swing.JFrame {
             jList1.setModel(model);
             listaVentas.clear();
         }
+        */
     }//GEN-LAST:event_jBGVeActionPerformed
     
     //Guarda los objetos del archivo en una lista, mostrándolas en el JList
     private void jBMVeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBMVeActionPerformed
         
+        //Modelo CSV
+        GestorVentas gv = new GestorVentas();
+        
+        if(gv.fileReadCSV()){
+            listaVentas = gv.leerVentasCSV();
+
+            DefaultListModel model = new DefaultListModel();
+            for (Venta ven : listaVentas){
+                model.addElement(ven.getNombreCliente());
+            }
+            jList1.setModel(model);
+            gv.borrarDatosCSV();
+        }
+        //Modelo DAT
+        /*
         GestorVentas gv = new GestorVentas();
         
         if(gv.fileRead()){
@@ -723,6 +761,8 @@ public class VentaGUI extends javax.swing.JFrame {
             jList1.setModel(model);
             gv.borrarDatos();
         }
+        
+        */
         
         
          
