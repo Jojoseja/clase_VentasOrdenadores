@@ -86,7 +86,7 @@ public class VentaGUI extends javax.swing.JFrame {
         jBAdd = new javax.swing.JButton();
         jBEli = new javax.swing.JButton();
         jBBus = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        JBSalir = new javax.swing.JButton();
         jBCan = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
@@ -275,11 +275,11 @@ public class VentaGUI extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Salir");
-        jButton4.setPreferredSize(new java.awt.Dimension(80, 30));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        JBSalir.setText("Salir");
+        JBSalir.setPreferredSize(new java.awt.Dimension(80, 30));
+        JBSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                JBSalirActionPerformed(evt);
             }
         });
 
@@ -399,7 +399,7 @@ public class VentaGUI extends javax.swing.JFrame {
                         .addComponent(jBGVe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBCan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(109, 109, 109))))
         );
@@ -490,7 +490,7 @@ public class VentaGUI extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addComponent(jBCan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(JBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(177, 177, 177))
         );
 
@@ -549,7 +549,8 @@ public class VentaGUI extends javax.swing.JFrame {
         
 
     }//GEN-LAST:event_jnombreClienteActionPerformed
-
+    
+    //Botón Eliminar -> Borra el usuario seleccionado del JList
     private void jBEliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliActionPerformed
         String[] options = {"Eliminar", "Cancelar"};
         jnombreCliente.setText(jList1.getSelectedValue());
@@ -575,7 +576,9 @@ public class VentaGUI extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jBEliActionPerformed
-
+    
+    
+    //Botón Buscar -> Muestra las Ventas del usuario que se nombre en NombreCliente 
     private void jBBusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBusActionPerformed
 
         int res = 0;
@@ -585,7 +588,7 @@ public class VentaGUI extends javax.swing.JFrame {
         String nombre = jnombreCliente.getText();
         ArrayList<Venta> ventaFiltro = busquedaLista(nombre);
         
-        if (ventaFiltro.size() == -1){
+        if (ventaFiltro.size() == 0){
             setDefault();
             jOptBus1.showMessageDialog(null, "No se ha encontrado el cliente", "ResultadoBúsqueda", jOptBus1.INFORMATION_MESSAGE);
 
@@ -620,11 +623,29 @@ public class VentaGUI extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jBBusActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_jButton4ActionPerformed
-
+    
+    //Botón Salir -> Sale del Programa
+    private void JBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBSalirActionPerformed
+        if (!listaVentas.isEmpty()){
+            Object[] options = {"Cancelar","Salir Igualmente"};
+            int res = jOptBus1.showOptionDialog(
+                null,
+                "Hay ventas no guardadas",
+                "Hay ventas no guardadas",
+                jOptBus1.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
+            if (res == 1){
+                System.exit(0);
+            }
+        } else {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_JBSalirActionPerformed
+    
+    //Botón Cancelar -> Vuelve al estado por defecto conservando las ventas
     private void jBCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCanActionPerformed
         jnombreCliente.setText("");
         jnombreCliente.grabFocus();
@@ -633,6 +654,7 @@ public class VentaGUI extends javax.swing.JFrame {
         jBBus.setEnabled(false);
     }//GEN-LAST:event_jBCanActionPerformed
 
+    //Agrega la venta creada a la lista ventas
     private void jBAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAddActionPerformed
         booleanButtons(false);
         listaVentas.add(crearVentas());
@@ -644,6 +666,7 @@ public class VentaGUI extends javax.swing.JFrame {
         setDefault();
     }//GEN-LAST:event_jBAddActionPerformed
 
+    //Habilita el botón eliminar 
     private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
         if (!(jList1.getSelectedIndex() == -1)){
             jBEli.setEnabled(true);
@@ -658,34 +681,49 @@ public class VentaGUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jList1FocusLost
 
+    //Deselecciona de la JList y devuelve los botones al estado normal
     private void jnombreClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jnombreClienteFocusGained
         setDefault();
         jList1.clearSelection();
     }//GEN-LAST:event_jnombreClienteFocusGained
-
+    
+    //Muestra las ventas del archivo ventas, si han sido cargadas se deben guardar previamente
     private void jBGVeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGVeActionPerformed
-        GestorVentas gv = new GestorVentas();
+        if (listaVentas.isEmpty()){
+            jOptBus1.showMessageDialog(
+                null,
+                "No hay ventas en la lista",
+                "No hay ventas en la lista",
+                jOptBus1.INFORMATION_MESSAGE);
+        } else {
         
-        gv.escribirVentas(listaVentas);
-        
-        
-        DefaultListModel model = new DefaultListModel();
-        jList1.setModel(model);
-        listaVentas.clear();
-    }//GEN-LAST:event_jBGVeActionPerformed
+            GestorVentas gv = new GestorVentas();
 
+            gv.escribirVentas(listaVentas);
+
+
+            DefaultListModel model = new DefaultListModel();
+            jList1.setModel(model);
+            listaVentas.clear();
+        }
+    }//GEN-LAST:event_jBGVeActionPerformed
+    
+    //Guarda los objetos del archivo en una lista, mostrándolas en el JList
     private void jBMVeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBMVeActionPerformed
-        GestorVentas gv = new GestorVentas();
-        listaVentas = gv.leerVentas();
         
-        DefaultListModel model = new DefaultListModel();
-        for (Venta ven : listaVentas){
-            model.addElement(ven.getNombreCliente());
+        GestorVentas gv = new GestorVentas();
+        
+        if(gv.fileRead()){
+            listaVentas = gv.leerVentas();
+
+            DefaultListModel model = new DefaultListModel();
+            for (Venta ven : listaVentas){
+                model.addElement(ven.getNombreCliente());
+            }
+            jList1.setModel(model);
+            gv.borrarDatos();
         }
         
-        jList1.setModel(model);
-        
-        gv.borrarDatos();
         
          
     }//GEN-LAST:event_jBMVeActionPerformed
@@ -966,6 +1004,7 @@ public class VentaGUI extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton JBSalir;
     private javax.swing.ButtonGroup bgDiscoDuro;
     private javax.swing.ButtonGroup bgMemoria;
     private javax.swing.ButtonGroup bgMonitor;
@@ -976,7 +1015,6 @@ public class VentaGUI extends javax.swing.JFrame {
     private javax.swing.JButton jBEli;
     private javax.swing.JButton jBGVe;
     private javax.swing.JButton jBMVe;
-    private javax.swing.JButton jButton4;
     private javax.swing.JRadioButton jDis1;
     private javax.swing.JRadioButton jDis2;
     private javax.swing.JRadioButton jDis3;

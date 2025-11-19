@@ -82,7 +82,7 @@ public class GestorVentas {
             carpetaRecursos.mkdirs();
         } else {
             ArrayList<Venta> ventaArchivos = this.leerVentas();
-                listaVentas.addAll(0, ventaArchivos);
+            listaVentas.addAll(0, ventaArchivos);
         }
         
         Path pathArchivoDat = Path.of(String.valueOf(pathRecursos), "archivo.dat");
@@ -102,5 +102,11 @@ public class GestorVentas {
         try (BufferedWriter bfw = new BufferedWriter(new FileWriter(archivoDat))) {
             bfw.write("");
         } catch (Exception e) {System.out.println(e.getMessage());}
+    }
+    
+    public boolean fileRead(){
+        Path pathArchivoDat = Path.of(String.valueOf(pathRecursos), "archivo.dat");
+        File archivoDat = new File(String.valueOf(pathArchivoDat));
+        return !(archivoDat.length() == 0);
     }
 }

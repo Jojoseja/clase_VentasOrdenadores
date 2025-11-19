@@ -169,6 +169,48 @@ public class Venta implements Externalizable{
         this.backUpRestore = oi.readBoolean();
     }
     
+    public String writeCSV(){
+        StringBuilder sb = new StringBuilder();
+        String sep = ";;";
+        
+        sb.append(this.nombreCliente);
+        sb.append(sep);
+        sb.append(this.localidad);
+        sb.append(sep);
+        sb.append(this.procesador);
+        sb.append(sep);
+        sb.append(this.memoria);
+        sb.append(sep);
+        sb.append(this.monitor);
+        sb.append(sep);
+        sb.append(this.discoDuro);
+        sb.append(sep);
+        sb.append(this.grabadoraDVD);
+        sb.append(sep);
+        sb.append(this.wifi);
+        sb.append(sep);
+        sb.append(this.sintonizadorTV);
+        sb.append(sep);
+        sb.append(this.backUpRestore);
+        
+        
+        return sb.toString();
+    }
+    
+    public void readCSV(String text){
+        String[] partes = text.split(";;");
+        this.nombreCliente = partes[0];
+        this.localidad = partes[1];
+        this.procesador = partes[2];
+        this.memoria = partes[3];
+        this.monitor = partes[4];
+        this.discoDuro = partes[5];
+        //this.grabadoraDVD = partes[6].;
+        //this.wifi = partes[7];
+        //this.sintonizadorTV = partes[8];
+        //this.backUpRestore = partes[9]
+    }
+    
     
     
     
